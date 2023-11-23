@@ -1,0 +1,24 @@
+#include <iostream>
+Using namespace std;
+int main()
+
+{
+    //*
+    /*SELECT cno,(SELECT cname FROM course WHERE course.cno=score.cno) cname,count(sno) total
+FROM score
+WHERE EXISTS(SELECT cno FROM course WHERE attribute="必修")
+GROUP BY cno
+*/
+/*
+SELECT cno,(SELECT cname FROM course WHERE course.cno=score.cno) cname,count(sno) total
+FROM score
+WHERE cno IN(SELECT cno FROM course WHERE attribute="必修")
+GROUP BY cno
+*/
+SELECT cno,cname,(SELECT count(sno) FROM score GROUP BY cno) total FROM course
+WHERE EXISTS(SELECT cno FROM score WHERE course.cno=score.cno) AND attribute="必修";
+/*SELECT cno,(SELECT cname FROM course WHERE course.cno=score.cno AND attribute="必修")cname,count(sno) total
+FROM score
+WHERE cno IN (SELECT cno FROM course WHERE course.cno=score.cno AND attribute="必修")
+GROUP BY cno;*/
+    */
